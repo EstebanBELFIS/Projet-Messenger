@@ -48,22 +48,26 @@ export default {
   },
   methods: {
     ...mapActions(["createOneToOneConversation"]),
+    ...mapActions(["createManyToManyConversation"]),
     openConversation() {
       let promise = "";
       if(this.selectedProfiles.length >1){
-          promise = this.getOrCreateOneToOneConversation(this.selectedProfiles);
+          promise = this.createManyToManyConversation(this.selectedProfiles);
           console.log("Plusieurs users séléctionnés !");
           promise.finally(() => {
             console.log("Conversation ouverte !");
           });
       }
       else if(this.selectedProfiles.length === 1){
-          promise = this.getOrCreateOneToOneConversation(this.selectedProfiles[0]);
+          promise = this.createOneToOneConversation(this.selectedProfiles[0]);
           console.log(this.selectedProfiles[0]);
           console.log("Un seul user séléctionnés !");
           promise.finally(() => {
             console.log("Conversation ouverte !");
           });
+      }
+      else{
+        console.log("Veuillez séléctionner au moins une personne !");
       }
 
       
