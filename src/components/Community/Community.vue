@@ -7,6 +7,7 @@
             class="prompt"
             type="text"
             placeholder="Rechercher un utilisateur"
+            v-model="search"
           />
           <i class="search icon"></i>
         </div>
@@ -18,6 +19,7 @@
         <img v-bind:src="user.picture_url" />
         <span class="">{{ user.username }}</span>
       </div>
+      
     </div>
 
     <div class="actions">
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   name: "Community",
@@ -40,7 +42,8 @@ export default {
     return {
       selectedProfiles : [
 
-      ] 
+      ] ,
+      search: "",
     };
   },
   methods: {
@@ -51,10 +54,20 @@ export default {
       promise.finally(() => {
         console.log("Conversation ouverte !");
       });
+
+      /*toggleSelected(username) {
+
+      };
+      isSelected(username) {
+
+      }*/
     }
   },
   computed: {
-    ...mapGetters(["users"])
+    ...mapGetters(["users"]),
+    filterUsers() {
+      return this.users.filter(user=>user.username.toLowerCase().includes(this.search.toLowerCase()));
+    }
   }
 };
 </script>
