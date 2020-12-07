@@ -48,66 +48,18 @@
           </div>
         </div>
       </div>
-      <div class="conversation new" title="Bob" @click="openConversation(0)">
-        <a class="avatar">
-          <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" />
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title"><i class="ui small icon circle"> </i> Bob</div>
-            <span class="time">01:30:58</span>
+      <div v-for="conversation in conversations" :key="conversation.id">
+        <div class="conversation new" title="bob" @click="openConversation(conversation.id)">
+          <a class="avatar">
+            <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" />
+          </a>
+          <div class="content">
+            <div class="metadata">
+              <div class="title"><i class="ui small icon circle"> </i>Groupe : <span v-for="participant in conversation.participants" :key="participant"> {{participant}},</span></div>
+              <span class="time">01:30:58</span>
+            </div>
+            <div class="text">C'est vraiment super Alice !</div>
           </div>
-          <div class="text">C'est vraiment super Alice !</div>
-        </div>
-      </div>
-      <div
-        class="conversation"
-        title="Groupe: Gael, Bob"
-        @click="openConversation(0)"
-      >
-        <a class="avatar">
-          <span>
-            <i class="users icon"> </i>
-          </span>
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title">Groupe: Gael, Bob</div>
-            <span class="time">01:36:38</span>
-          </div>
-          <div class="text">Incroyable !</div>
-        </div>
-      </div>
-      <div
-        class="conversation available"
-        title="Cha"
-        @click="openConversation(0)"
-      >
-        <a class="avatar">
-          <img src="https://source.unsplash.com/8wbxjJBrl3k/100x100" />
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title"><i class="ui small icon circle"> </i> Cha</div>
-            <span class="time">01:47:50</span>
-          </div>
-          <div class="text">Nouvelle conversation</div>
-        </div>
-      </div>
-      <div
-        class="conversation selected"
-        title="Derek"
-        @click="openConversation(0)"
-      >
-        <a class="avatar">
-          <img src="https://source.unsplash.com/FUcupae92P4/100x100" />
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="title">Derek</div>
-            <span class="time">01:48:00</span>
-          </div>
-          <div class="text">Nouvelle conversation</div>
         </div>
       </div>
     </div>
