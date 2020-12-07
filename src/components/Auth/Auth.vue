@@ -1,7 +1,6 @@
 <script src="../../store/index.js"></script>
 <template>
   <div class="auth">
-  blaba
     <div class="ui middle aligned center aligned grid">
       <div class="column">
         <h2 class="ui primary image header">
