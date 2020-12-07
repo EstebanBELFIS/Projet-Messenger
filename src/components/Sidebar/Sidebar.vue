@@ -51,14 +51,16 @@
       <div v-for="conversation in conversations" :key="conversation.id">
         <div v-if="conversation.participants.length >2" class="conversation new"  @click="openConversation(conversation.id)">
           <a class="avatar">
-            <i class="users icon"></i>
+            <span>
+              <i class="users icon"></i>
+            </span>
           </a>
           <div class="content">
             <div class="metadata">
               <div class="title"><i class="ui small icon circle"> </i>Groupe : <span v-for="participant in conversation.participants" :key="participant"> {{participant}},</span></div>
               <span class="time">01:30:58</span>
             </div>
-            <div class="text">C'est vraiment super Alice !</div>
+            <div class="text">{{ conversation.messages[conversation.participants.length - 1]}}</div>
           </div>
         </div>
         <div v-if="conversation.participants.length <=2" class="conversation new"  @click="openConversation(conversation.id)">
@@ -70,7 +72,7 @@
               <div class="title"><i class="ui small icon circle"> </i>{{conversation.participants[1]}}</div>
               <span class="time">01:30:58</span>
             </div>
-            <div class="text">C'est vraiment super Alice !</div>
+            <div class="text">{{ conversation.messages[conversation.participants.length - 1]}}</div>
           </div>
         </div>
       </div>
