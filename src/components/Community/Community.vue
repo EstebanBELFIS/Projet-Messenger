@@ -49,11 +49,24 @@ export default {
   methods: {
     ...mapActions(["createOneToOneConversation"]),
     openConversation() {
-      let promise = this.createOneToOneConversation("Alice");
+      let promise = "";
+      if(this.selectedProfiles.length >1){
+          promise = this.getOrCreateOneToOneConversation(this.selectedProfiles);
+          console.log("Plusieurs users séléctionnés !");
+          promise.finally(() => {
+            console.log("Conversation ouverte !");
+          });
+      }
+      else if(this.selectedProfiles.length === 1){
+          promise = this.getOrCreateOneToOneConversation(this.selectedProfiles[0]);
+          console.log(this.selectedProfiles[0]);
+          console.log("Un seul user séléctionnés !");
+          promise.finally(() => {
+            console.log("Conversation ouverte !");
+          });
+      }
 
-      promise.finally(() => {
-        console.log("Conversation ouverte !");
-      });
+      
 
       /*toggleSelected(username) {
 
