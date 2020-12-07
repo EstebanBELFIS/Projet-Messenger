@@ -7,6 +7,7 @@
             class="prompt"
             type="text"
             placeholder="Rechercher un utilisateur"
+            v-model="search"
           />
           <i class="search icon"></i>
         </div>
@@ -14,42 +15,12 @@
       </div>
     </div>
     <div class="users">
-      <div class="selected user">
-        <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" /><span
-          class=""
-          >Bob</span
-        >
+
+      <div class="user" v-for="user in filterUsers" :key="user.username" :class="{}">
+       <img v-bind:src="user.picture_url"/>
+        <span class="" >{{ user.username }}</span>
       </div>
-      <div class="user">
-        <img src="https://source.unsplash.com/8wbxjJBrl3k/100x100" /><span
-          class=""
-          >Cha</span
-        >
-      </div>
-      <div class="user">
-        <img src="https://source.unsplash.com/FUcupae92P4/100x100" /><span
-          class="available"
-          >Derek</span
-        >
-      </div>
-      <div class="user">
-        <img src="https://source.unsplash.com/4U1x6459Q-s/100x100" /><span
-          class=""
-          >Emilio</span
-        >
-      </div>
-      <div class="selected user">
-        <img src="https://source.unsplash.com/3402kvtHhOo/100x100" /><span
-          class="available"
-          >Fabrice</span
-        >
-      </div>
-      <div class="user">
-        <img src="https://source.unsplash.com/OYH7rc2a3LA/100x100" /><span
-          class=""
-          >Gael</span
-        >
-      </div>
+      
     </div>
 
     <div class="actions">
@@ -64,12 +35,15 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   name: "Community",
   data() {
-    return {};
+    return {
+      selectedUsers:[],
+      search: "",
+    };
   },
   methods: {
     ...mapActions(["createOneToOneConversation"]),
@@ -79,10 +53,20 @@ export default {
       promise.finally(() => {
         console.log("Conversation ouverte !");
       });
+
+      /*toggleSelected(username) {
+
+      };
+      isSelected(username) {
+
+      }*/
     }
   },
   computed: {
-    ...mapGetters(["users"])
+    ...mapGetters(["users"]),
+    filterUsers() {
+      return this.users.filter(user=>user.username.includes(this.search));
+    }
   }
 };
 </script>
