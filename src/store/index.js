@@ -77,7 +77,17 @@ export default new Vuex.Store({
     },
 
     upsertConversation(state, { conversation }) {
-      //TODO
+      const localConversationIndex = state.conversations.findIndex(
+        (_conversation) => _conversation.id === conversation.id
+      );
+
+      if (localConversationIndex !== -1) {
+        Vue.set(state.conversations, localConversationIndex, conversation);
+      } else {
+        state.conversations.push({
+          ...conversation
+        });
+      }
     }
   },
   actions: {
@@ -125,9 +135,9 @@ export default new Vuex.Store({
       );
 
       promise.then(({ conversation }) => {
-        // commit("upsertConversation", {
-        //   conversation
-        // });
+        commit("upsertConversation", {
+          conversation
+        });
 
         router.push({
           name: "Conversation",
@@ -142,6 +152,17 @@ export default new Vuex.Store({
       const promise = Vue.prototype.$client.createManyToManyConversation(
         usernames
       );
+
+      promise.then(({ conversation }) => {
+        commit("upsertConversation", {
+          conversation
+        });
+
+        router.push({
+          name: "Conversation",
+          params: { id: conversation.id }
+        });
+      });
 
       return promise;
     }
