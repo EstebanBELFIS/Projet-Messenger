@@ -65,7 +65,7 @@ export default {
   computed: {
     ...mapGetters(["users"]),
     filterUsers() {
-      return this.users.filter(user=>user.username.includes(this.search));
+      return this.users.filter(user=>user.username.toLowerCase().includes(this.search.toLowerCase()));
     }
   }
 };
