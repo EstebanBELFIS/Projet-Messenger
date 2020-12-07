@@ -12,7 +12,16 @@
       <div class="title">
         <div class="ui compact">
           <i class="icon circle"></i>
-          <span>Groupe: Alice, Bob</span>
+          
+          <span v-if="this.conversation.participants.length > 2">
+            Groupe: 
+            <span v-for="participant in this.conversation.participants" :key="participant">
+              {{participant}},
+              </span>
+          </span>
+          <span v-else>
+            {{this.conversation.participants[1]}}
+            </span>
           <div class="ui simple dropdown item">
             <i class="vertical ellipsis icon"></i>
 

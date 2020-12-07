@@ -43,8 +43,7 @@ export default new Vuex.Store({
       });
     },
     conversation(state, getters) {
-      //TODO
-    }
+      return state.conversations.filter(conversation=>conversation.id === state.currentConversationId)[0]; }
   },
   mutations: {
     syncCurrentConversation(state, conversationId) {
