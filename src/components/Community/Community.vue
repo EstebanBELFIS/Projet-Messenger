@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="users">
-      <div v-for="user in users" :key="user.username" class="user" :class="{selected:selectedProfiles.includes(user.username)}" @click="selectedProfiles.includes(user.username) ? selectedProfiles.splice(selectedProfiles.indexOf(user.username), 1) : selectedProfiles.push(user.username)">
+      <div v-for="user in filterUsers" :key="user.username"  class="user" :class="{selected:selectedProfiles.includes(user.username)}" @click="selectedProfiles.includes(user.username) ? selectedProfiles.splice(selectedProfiles.indexOf(user.username), 1) : selectedProfiles.push(user.username)">
         <img v-bind:src="user.picture_url" />
         <span class="">{{ user.username }}</span>
       </div>
