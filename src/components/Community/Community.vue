@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="users">
-      <div v-for="user in users" :key="user.username" class="user">
+      <div v-for="user in users" :key="user.username" class="user" :class="{selected:selectedProfiles.includes(user.username)}" @click="selectedProfiles.includes(user.username) ? selectedProfiles.splice(selectedProfiles.indexOf(user.username), 1) : selectedProfiles.push(user.username)">
         <img v-bind:src="user.picture_url" />
         <span class="">{{ user.username }}</span>
       </div>
@@ -24,7 +24,7 @@
       <button class="ui primary big button" @click="openConversation">
         <i class="conversation icon"></i>
         <span>
-          Ouvrir la conversation (2)
+          Ouvrir la conversation ({{this.selectedProfiles.length}})
         </span>
       </button>
     </div>
@@ -37,7 +37,11 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "Community",
   data() {
-    return {};
+    return {
+      selectedProfiles : [
+
+      ] 
+    };
   },
   methods: {
     ...mapActions(["createOneToOneConversation"]),
