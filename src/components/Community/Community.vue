@@ -48,11 +48,11 @@ export default {
   },
   methods: {
     ...mapActions(["createOneToOneConversation"]),
-    ...mapActions(["createManyToManyConversation"]),
+    ...mapActions(["CreateConversation"]),
     openConversation() {
       let promise = "";
       if(this.selectedProfiles.length >1){
-          promise = this.createManyToManyConversation(this.selectedProfiles);
+          promise = this.CreateConversation(this.selectedProfiles);
           console.log("Plusieurs users séléctionnés !");
           promise.finally(() => {
             console.log("Conversation ouverte !");

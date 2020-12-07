@@ -138,20 +138,10 @@ export default new Vuex.Store({
       return promise;
     },
 
-    createManyToManyConversation({ commit }, usernames) {
+    CreateConversation({ commit }, usernames) {
       const promise = Vue.prototype.$client.createManyToManyConversation(
         usernames
       );
-      promise.then(({ group }) => {
-        // commit("upsertConversation", {
-        //   conversation
-        // });
-
-        router.push({
-          name: "Group",
-          params: { id: group.id }
-        });
-      });
 
       return promise;
     }
