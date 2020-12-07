@@ -23,3 +23,4 @@ new Vue({
 router.push({ name: "Community" });
 
 Vue.use(client, store);
+// Louis le bg
