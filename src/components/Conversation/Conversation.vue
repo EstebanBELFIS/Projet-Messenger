@@ -5,8 +5,13 @@
       <!--        class="avatar"-->
       <!--        src="https://source.unsplash.com/FUcupae92P4/100x100"-->
       <!--      />-->
-      <div class="avatar">
-        <i class="ui users icon"></i>
+      <div v-if="conversation.participants.length <=2">
+            <img class="avatar" v-bind:src="conversation.avatar" />
+      </div>
+      <div v-if="conversation.participants.length >2">
+          <div class="avatar">
+            <i class="ui users icon"></i>
+          </div>
       </div>
 
       <div class="title">

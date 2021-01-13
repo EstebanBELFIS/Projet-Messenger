@@ -60,9 +60,20 @@ export default new Vuex.Store({
       });
     },
     conversation(state, getters) {
-      return state.conversations.filter(
+      let conversation = state.conversations.filter(
         (conversation) => conversation.id === state.currentConversationId
       )[0];
+      const other_usernames = conversation.participants.filter(
+        (username) => username !== state.user.username
+      );
+      return {
+        ...conversation,
+        avatar:
+          conversation.type === "one_to_one"
+            ? state.users.find((user) => user.username === other_usernames[0])
+                .picture_url
+            : "https://www.sfav.org/image/Presentation_Sans.png"
+      };
     }
   },
   mutations: {
