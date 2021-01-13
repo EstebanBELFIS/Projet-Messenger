@@ -43,12 +43,13 @@
               class="prompt"
               placeholder="Rechercher une conversation"
               type="text"
+              v-model="search"
             />
             <i class="search icon"> </i>
           </div>
         </div>
       </div>
-      <div v-for="conversation in conversations" :key="conversation.id">
+      <div v-for="conversation in filterConversations" :key="conversation.id">
         <div v-if="conversation.participants.length >2" class="conversation new"  @click="openConversation(conversation.id)">
           <a class="avatar">
             <span>
@@ -104,7 +105,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["user", "conversations"])
+    ...mapGetters(["user", "conversations"]),
+    filterConversations() {
+      return this.conversations.filter(conversation=>conversation.participants[1].toLowerCase().includes(this.search.toLowerCase()));
+      
+      //return this.users.filter(user=>user.username.toLowerCase().includes(this.search.toLowerCase()));
+    }
   }
 };
 </script>
