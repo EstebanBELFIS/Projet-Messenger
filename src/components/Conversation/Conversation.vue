@@ -18,13 +18,9 @@
         <div class="ui compact">
           <i class="icon circle"></i>
           
-          <span v-if="this.conversation.participants.length > 2">
-            Groupe: 
-            <span v-for="(participant, index) in this.conversation.participants" :key="participant"><span v-if="index !== 0">,</span> {{participant}}</span>
+          <span >
+            {{this.conversation.title}}
           </span>
-          <span v-else>
-            {{this.conversation.participants[1]}}
-            </span>
           <div class="ui simple dropdown item">
             <i class="vertical ellipsis icon"></i>
 
