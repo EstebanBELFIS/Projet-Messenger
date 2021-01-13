@@ -55,25 +55,18 @@ export default new Vuex.Store({
             conversation.type === "one_to_one"
               ? state.users.find((user) => user.username === other_usernames[0])
                   .picture_url
-              : "https://www.sfav.org/image/Presentation_Sans.png"
+              : "https://www.sfav.org/image/Presentation_Sans.png",
+          title:
+            conversation.type === "one_to_one"
+              ? other_usernames[0]
+              : other_usernames.join(", ")
         };
       });
     },
     conversation(state, getters) {
-      let conversation = state.conversations.filter(
+      return state.conversations.filter(
         (conversation) => conversation.id === state.currentConversationId
       )[0];
-      const other_usernames = conversation.participants.filter(
-        (username) => username !== state.user.username
-      );
-      return {
-        ...conversation,
-        avatar:
-          conversation.type === "one_to_one"
-            ? state.users.find((user) => user.username === other_usernames[0])
-                .picture_url
-            : "https://www.sfav.org/image/Presentation_Sans.png"
-      };
     }
   },
   mutations: {
@@ -122,16 +115,6 @@ export default new Vuex.Store({
           ...conversation
         });
       }
-    },
-    upsertMessage(state, { conversation_id, message }) {
-      console.log(conversation_id);
-      let conversation = state.conversations.filter(
-        (conversation) => conversation.id === state.currentConversationId
-      )[0];
-
-      conversation.messages.push({
-        ...message
-      });
     }
   },
   actions: {
