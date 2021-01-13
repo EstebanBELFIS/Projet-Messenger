@@ -107,7 +107,8 @@ export default {
   computed: {
     ...mapGetters(["user", "conversations"]),
     filterConversations() {
-      return this.conversations.filter(conversation=>conversation.title.toLowerCase().includes(this.search.toLowerCase()));
+      return this.conversations.filter(conversation=>conversation.participants[1].toLowerCase().includes(this.search.toLowerCase())).sort(function(conversation_a, conversation_b){return new Date(conversation_b.updated_at) - new Date(conversation_a.updated_at); });
+      //test 4
       
       //return this.users.filter(user=>user.username.toLowerCase().includes(this.search.toLowerCase()));
     }
