@@ -49,6 +49,7 @@ export default {
   methods: {
     ...mapActions(["createOneToOneConversation"]),
     ...mapActions(["CreateConversation"]),
+    // ...mapGetters(["getUserPicture"]),
     openConversation() {
       let promise = "";
       if(this.selectedProfiles.length >1){
@@ -60,8 +61,9 @@ export default {
       }
       else if(this.selectedProfiles.length === 1){
           promise = this.createOneToOneConversation(this.selectedProfiles[0]);
-          console.log(this.selectedProfiles[0]);
+          console.log(this.selectedProfiles);
           console.log("Un seul user séléctionnés !");
+          // getUserPicture(this.selectedProfiles);
           promise.finally(() => {
             console.log("Conversation ouverte !");
           });

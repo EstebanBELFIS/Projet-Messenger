@@ -65,7 +65,7 @@
         </div>
         <div v-if="conversation.participants.length <=2" class="conversation new"  @click="openConversation(conversation.id)">
           <a class="avatar">
-            <img src="https://source.unsplash.com/7omHUGhhmZ0/100x100" />
+            <img v-bind:src="conversation.avatar" />
           </a>
           <div class="content">
             <div class="metadata">

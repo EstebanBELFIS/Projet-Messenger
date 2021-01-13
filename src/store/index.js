@@ -28,6 +28,16 @@ export default new Vuex.Store({
     user(state) {
       return state.user;
     },
+
+    // getUserPicture(state, username) {
+    //   state.users.forEach((element) => {
+    //     console.log(element);
+    //     if (element === username) {
+    //       return element.picture_url;
+    //     }
+    //   });
+    // },
+
     users(state) {
       return state.users.map((user) => ({
         ...user
@@ -36,14 +46,24 @@ export default new Vuex.Store({
     },
     conversations(state) {
       return state.conversations.map((conversation) => {
+        const other_usernames = conversation.participants.filter(
+          (username) => username !== state.user.username
+        );
         return {
-          ...conversation
-          //TODO
+          ...conversation,
+          avatar:
+            conversation.type === "one_to_one"
+              ? state.users.find((user) => user.username === other_usernames[0])
+                  .picture_url
+              : ""
         };
       });
     },
     conversation(state, getters) {
-      return state.conversations.filter(conversation=>conversation.id === state.currentConversationId)[0]; }
+      return state.conversations.filter(
+        (conversation) => conversation.id === state.currentConversationId
+      )[0];
+    }
   },
   mutations: {
     syncCurrentConversation(state, conversationId) {
@@ -59,6 +79,10 @@ export default new Vuex.Store({
     },
     setUsers(state, users) {
       state.users = users;
+    },
+
+    setConversations(state, conversations) {
+      state.conversations = conversations;
     },
 
     upsertUser(state, { user }) {
@@ -119,12 +143,17 @@ export default new Vuex.Store({
 
     initializeAfterAuthentication({ dispatch }) {
       dispatch("fetchUsers");
-      //TODO: dispatch("fetchConversations");
+      dispatch("fetchConversations");
     },
 
     fetchUsers({ commit }) {
       Vue.prototype.$client.getUsers().then(({ users }) => {
         commit("setUsers", users);
+      });
+    },
+    fetchConversations({ commit }) {
+      Vue.prototype.$client.getConversations().then(({ conversations }) => {
+        commit("setConversations", conversations);
       });
     },
 
