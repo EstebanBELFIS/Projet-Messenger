@@ -55,8 +55,9 @@
         <div class="conversation-body" id="scroll">
           <div class="wrapper">
             <div class="time">01:32:08</div>
-            <div class="message mine">
-              <div class="bubble top bottom">Hello les amis !</div>
+            <span v-for="message in this.conversation.messages" :key="message.id">
+            <div class="message" v-bind:class="[message.from == user.username ? 'mine' : '']">
+              <div class="bubble top bottom">{{message.content}}</div>
               <div class="reacts"></div>
               <div class="controls">
                 <i title="Supprimer" class="circular trash icon"></i
@@ -64,7 +65,8 @@
                 ><i title="Répondre" class="circular reply icon"></i>
               </div>
             </div>
-            <div class="time">01:32:14</div>
+            </span>
+            <!-- <div class="time">01:32:14</div>
             <div class="message">
               <img
                 title="Bob"
@@ -345,7 +347,7 @@
               <span>
                 On peut même éditer ou supprimer des messages !
               </span>
-            </p>
+            </p> -->
 
             <div class="ui fluid search">
               <div class="ui icon input">
@@ -353,8 +355,9 @@
                   class="prompt"
                   type="text"
                   placeholder="Rédiger un message"
+                  name = "message-content"
                 />
-                <i class="send icon"></i>
+                <button class="ui primary big button bubble" @click="sendMessage"><i class="send icon" ></i></button>
               </div>
             </div>
           </div>
@@ -369,7 +372,7 @@
 
 <script>
 import Group from "@/components/Group/Group";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 
 export default {
   name: "Conversation",
@@ -386,10 +389,11 @@ export default {
     this.scrollBottom();
   },
   computed: {
-    ...mapGetters(["conversation"])
+    ...mapGetters(["conversation", "user"])
   },
   methods: {
     ...mapActions([]),
+    ...mapActions(["postMessage"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -399,6 +403,20 @@ export default {
           ).scrollHeight;
         }
       }, 0);
+    },
+    sendMessage() {
+      console.log(this.conversation.messages);
+      let promise = "";
+      let conversationId = this.conversation.id;
+      let content = document.querySelector("input[name=message-content]").value;
+      promise = this.postMessage({conversationId,content});
+       promise.finally(() => {
+            console.log(promise);
+            console.log(this.conversation);
+      });
+    },
+    refreshPage() {
+
     }
   },
   watch: {

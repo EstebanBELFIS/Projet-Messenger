@@ -193,6 +193,12 @@ export default new Vuex.Store({
       });
 
       return promise;
+    },
+    postMessage({commit},{conversationId, content}) {
+      const promise = Vue.prototype.$client.postMessage(
+        conversationId,
+        content
+      );
     }
   }
 });
