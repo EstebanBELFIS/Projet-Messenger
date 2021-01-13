@@ -55,11 +55,11 @@
       <div class="conversation-main">
         <div class="conversation-body" id="scroll">
           <div class="wrapper">
-            <div class="time">01:32:08</div>
             <span v-for="message in this.conversation.messages" :key="message.id">
+            <div class="time">{{message.posted_at.slice(11,16)}}</div>
             <div class="message" v-bind:class="[message.from == user.username ? 'mine' : '']">
               <span v-for="convUser in users" :key="convUser.id"> <span v-if="message.from == convUser.username">  <img
-                title="Alice"
+                v-bind:title="message.from"
                 v-bind:src="convUser.picture_url"
               /></span> </span>
               <div class="bubble top bottom">{{message.content}}</div>
