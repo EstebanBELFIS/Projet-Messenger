@@ -15,9 +15,7 @@
           
           <span v-if="this.conversation.participants.length > 2">
             Groupe: 
-            <span v-for="participant in this.conversation.participants" :key="participant">
-              {{participant}},
-              </span>
+            <span v-for="(participant, index) in this.conversation.participants" :key="participant"><span v-if="index !== 0">,</span> {{participant}}</span>
           </span>
           <span v-else>
             {{this.conversation.participants[1]}}
