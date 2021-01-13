@@ -58,7 +58,7 @@
           </a>
           <div class="content">
             <div class="metadata">
-              <div class="title"><i class="ui small icon circle"> </i>Groupe : <span v-for="participant in conversation.participants" :key="participant"> {{participant}},</span></div>
+              <div class="title"><i class="ui small icon circle"> </i>Groupe : <span>{{conversation.title}}</span></div>
               <span class="time">{{conversation.updated_at}}</span>
             </div>
             <div class="text">{{ (conversation.messages.length > 0 ? conversation.messages[conversation.messages.length - 1].content : "Pas de message pour l'instant")}}</div>
@@ -107,7 +107,7 @@ export default {
   computed: {
     ...mapGetters(["user", "conversations"]),
     filterConversations() {
-      return this.conversations.filter(conversation=>conversation.participants[1].toLowerCase().includes(this.search.toLowerCase()));
+      return this.conversations.filter(conversation=>conversation.title.toLowerCase().includes(this.search.toLowerCase()));
       
       //return this.users.filter(user=>user.username.toLowerCase().includes(this.search.toLowerCase()));
     }
