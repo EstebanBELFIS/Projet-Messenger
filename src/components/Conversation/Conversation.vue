@@ -418,6 +418,7 @@ export default {
        promise.finally(() => {
             console.log(promise);
             console.log(this.conversation);
+            document.querySelector("input[name=message-content]").value = '';
       });
     },
     refreshPage() {
