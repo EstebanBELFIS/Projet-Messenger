@@ -55,7 +55,11 @@ export default new Vuex.Store({
             conversation.type === "one_to_one"
               ? state.users.find((user) => user.username === other_usernames[0])
                   .picture_url
-              : "https://www.sfav.org/image/Presentation_Sans.png"
+              : "https://www.sfav.org/image/Presentation_Sans.png",
+          title:
+            conversation.type === "one_to_one"
+              ? other_usernames[0]
+              : other_usernames.join(", ")
         };
       });
     },
@@ -72,7 +76,11 @@ export default new Vuex.Store({
           conversation.type === "one_to_one"
             ? state.users.find((user) => user.username === other_usernames[0])
                 .picture_url
-            : "https://www.sfav.org/image/Presentation_Sans.png"
+            : "https://www.sfav.org/image/Presentation_Sans.png",
+        title:
+            conversation.type === "one_to_one"
+              ? other_usernames[0]
+              : other_usernames.join(", ")
       };
     }
   },
