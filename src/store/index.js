@@ -132,9 +132,9 @@ export default new Vuex.Store({
       }
     },
     upsertMessage(state, { conversation_id, message }) {
-      console.log(conversation_id);
+      console.log('conversation id' + conversation_id);
       let conversation = state.conversations.filter(
-        (conversation) => conversation.id === state.currentConversationId
+        (conversation) => conversation.id === conversation_id
       )[0];
 
       conversation.messages.push({
