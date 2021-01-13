@@ -122,6 +122,16 @@ export default new Vuex.Store({
           ...conversation
         });
       }
+    },
+    upsertMessage(state, { conversation_id, message }) {
+      console.log(conversation_id);
+      let conversation = state.conversations.filter(
+        (conversation) => conversation.id === state.currentConversationId
+      )[0];
+
+      conversation.messages.push({
+        ...message
+      });
     }
   },
   actions: {
