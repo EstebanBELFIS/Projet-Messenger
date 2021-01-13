@@ -60,7 +60,7 @@
               <div class="title"><i class="ui small icon circle"> </i>Groupe : <span v-for="participant in conversation.participants" :key="participant"> {{participant}},</span></div>
               <span class="time">{{conversation.updated_at}}</span>
             </div>
-            <div class="text">{{ (conversation.messages[conversation.participants.length - 1].content ? conversation.messages[conversation.participants.length - 1].content : "Pas de message pour l'instant")}}</div>
+            <div class="text">{{ (conversation.messages.length > 0 ? conversation.messages[conversation.messages.length - 1].content : "Pas de message pour l'instant")}}</div>
           </div>
         </div>
         <div v-if="conversation.participants.length <=2" class="conversation new"  @click="openConversation(conversation.id)">
@@ -72,7 +72,7 @@
               <div class="title"><i class="ui small icon circle"> </i>{{conversation.participants[1]}}</div>
               <span class="time">{{conversation.updated_at}}</span>
             </div>
-            <div class="text">{{ (conversation.messages[conversation.participants.length - 1].content ? conversation.messages[conversation.participants.length - 1].content : "Pas de message pour l'instant")}}</div>
+            <div class="text">{{ (conversation.messages.length > 0  ? conversation.messages[conversation.messages.length - 1].content : "Pas de message pour l'instant")}}</div>
           </div>
         </div>
       </div>
