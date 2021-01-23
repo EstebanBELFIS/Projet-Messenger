@@ -62,7 +62,7 @@
                 v-bind:title="message.from"
                 v-bind:src="convUser.picture_url"
               /></span> </span>
-              <div class="bubble top bottom">{{message.content}}</div>
+              <div class="bubble top bottom" :id="'message_'+message.id">{{message.content}}</div>
               <div class="reacts">
                 <span v-for="react in message.reactions" :key="react">
                   <span v-if="react == 'HEART'">
@@ -84,7 +84,7 @@
                 </span>
               </div>
               <div class="controls">
-                <i title="Supprimer" class="circular trash icon"></i
+                <i title="Supprimer" class="circular trash icon" @click="deleteThisMessage(message.id)"></i
                 ><i title="Editer" class="circular edit icon"></i
                 ><i title="Répondre" class="circular reply icon"></i>
                 <div class="controls">
@@ -433,7 +433,7 @@ export default {
   },
   methods: {
     ...mapActions([]),
-    ...mapActions(["postMessage","reactMessage"]),
+    ...mapActions(["postMessage","reactMessage", "deleteMessage"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -464,7 +464,14 @@ export default {
       let promise = "";
       let conversationId = this.conversation.id;
       promise = this.reactMessage({conversationId,messageId,reaction});
-    }
+    },
+    deleteThisMessage(messageId) {
+      let promise = "";
+      let conversationId = this.conversation.id;
+      promise = this.deleteMessage({conversationId,messageId});
+      promise.finally(() => {
+            document.querySelector("#message_"+messageId).innerHTML = '<i> Message Supprimé </i>';
+      });    }
   },
   watch: {
     // eslint-disable-next-line no-unused-vars

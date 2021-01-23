@@ -141,6 +141,8 @@ export default new Vuex.Store({
         ...message
       });
     },
+    removeMessage(state, { conversation_id, message }) {
+    },
     upsertReaction(state, { conversation_id, message }) {
       console.log('conversation id' + conversation_id);
       let messageId = message.id;
@@ -247,6 +249,12 @@ export default new Vuex.Store({
         conversationId,
         messageId,
         reaction
+      );
+    },
+    deleteMessage({ commit }, { conversationId, messageId }) {
+      const promise = Vue.prototype.$client.deleteMessage(
+        conversationId,
+        messageId
       );
     }
   }
