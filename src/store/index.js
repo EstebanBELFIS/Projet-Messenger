@@ -140,6 +140,19 @@ export default new Vuex.Store({
       conversation.messages.push({
         ...message
       });
+    },
+    upsertReaction(state, { conversation_id, message }) {
+      console.log('conversation id' + conversation_id);
+      let messageId = message.id;
+      let conversation = state.conversations.filter(
+        (conversation) => conversation.id === conversation_id
+      )[0];
+      let messageReact = conversation.messages.filter(
+        (message) => message.id === messageId
+      )[0];
+
+      messageReact.reactions = message.reactions;
+
     }
   },
   actions: {
@@ -227,6 +240,13 @@ export default new Vuex.Store({
       const promise = Vue.prototype.$client.postMessage(
         conversationId,
         content
+      );
+    },
+    reactMessage({ commit }, { conversationId, messageId, reaction }) {
+      const promise = Vue.prototype.$client.reactMessage(
+        conversationId,
+        messageId,
+        reaction
       );
     }
   }

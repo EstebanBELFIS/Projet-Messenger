@@ -63,11 +63,46 @@
                 v-bind:src="convUser.picture_url"
               /></span> </span>
               <div class="bubble top bottom">{{message.content}}</div>
-              <div class="reacts"></div>
+              <div class="reacts">
+                <span v-for="react in message.reactions" :key="react">
+                  <span v-if="react == 'HEART'">
+                    <i title="Aimer" class="circular heart outline icon" :id="'heart_reacts_' + message.id"></i>
+                  </span>
+                  <span v-if="react == 'THUMB'">
+                    <i
+                    title="Pouce en l'air"
+                    class="circular thumbs up outline icon" :id="'thumb_reacts_' + message.id"></i>
+                  </span>
+                  <span v-if="react == 'HAPPY'">
+                    <i title="Content" class="circular smile outline icon"  :id="'happy_reacts_' + message.id"></i>
+                  </span>
+                  <span v-if="react == 'SAD'">
+                    <i
+                    title="Pas content"
+                    class="circular frown outline icon" :id="'sad_reacts_' + message.id"></i>
+                  </span>
+                </span>
+              </div>
               <div class="controls">
                 <i title="Supprimer" class="circular trash icon"></i
                 ><i title="Editer" class="circular edit icon"></i
                 ><i title="Répondre" class="circular reply icon"></i>
+                <div class="controls">
+               <span class="react"
+                  ><i title="Aimer" class="circular heart outline icon"  @click="reactToMessage(message.id,'HEART');"></i
+                  ><i
+                    title="Pouce en l'air"
+                    class="circular thumbs up outline icon"
+                     @click="reactToMessage(message.id,'THUMB');"
+                  ></i
+                  ><i title="Content" class="circular smile outline icon"  @click="reactToMessage(message.id,'HAPPY');"></i
+                  ><i
+                    title="Pas content"
+                    class="circular frown outline icon"
+                    @click="reactToMessage(message.id,'SAD');"
+                  ></i
+                ></span>
+              </div>
               </div>
             </div>
             </span>
@@ -398,7 +433,7 @@ export default {
   },
   methods: {
     ...mapActions([]),
-    ...mapActions(["postMessage"]),
+    ...mapActions(["postMessage","reactMessage"]),
     scrollBottom() {
       setTimeout(() => {
         let scrollElement = document.querySelector("#scroll");
@@ -423,6 +458,12 @@ export default {
     },
     refreshPage() {
 
+    },
+
+    reactToMessage(messageId,reaction) {
+      let promise = "";
+      let conversationId = this.conversation.id;
+      promise = this.reactMessage({conversationId,messageId,reaction});
     }
   },
   watch: {
