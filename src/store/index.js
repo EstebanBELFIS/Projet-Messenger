@@ -141,7 +141,14 @@ export default new Vuex.Store({
         ...message
       });
     },
-    removeMessage(state, { conversation_id, message }) {
+    removeMessage(state, { conversation_id, message_id }) {
+      let conversation = state.conversations.filter(
+        (conversation) => conversation.id === conversation_id
+      )[0];
+      let messageDeleted = conversation.messages.filter(
+        (message) => message.id === message_id
+      )[0];
+      messageDeleted.content = '<i> Message Supprimé</i>';
     },
     upsertReaction(state, { conversation_id, message }) {
       console.log('conversation id' + conversation_id);
