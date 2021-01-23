@@ -23,7 +23,7 @@
     </div>
 
     <div class="actions">
-      <button class="ui primary big button" @click="openConversation">
+      <button class="ui primary big button" @click="openConversation" id="openButton">
         <i class="conversation icon"></i>
         <span>
           Ouvrir la conversation ({{this.selectedProfiles.length}})
@@ -52,10 +52,15 @@ export default {
     // ...mapGetters(["getUserPicture"]),
     openConversation() {
       let promise = "";
+      let button = document.querySelector('#openButton');
+      button.innerHTML = "Ouverture de la conversation...";
       if(this.selectedProfiles.length >1){
           promise = this.CreateConversation(this.selectedProfiles);
           console.log("Plusieurs users séléctionnés !");
+          
           promise.finally(() => {
+            button.innerHTML = "Conversation Ouverte!";
+
             console.log("Conversation ouverte !");
           });
       }
@@ -65,6 +70,7 @@ export default {
           console.log("Un seul user séléctionnés !");
           // getUserPicture(this.selectedProfiles);
           promise.finally(() => {
+            button.innerHTML = "Conversation Ouverte!";
             console.log("Conversation ouverte !");
           });
       }
