@@ -3,9 +3,10 @@
     <div class="ui fluid search">
       <div class="ui icon input">
         <input
-          type="text"
-          placeholder="Rechercher un utilisateur"
-          class="prompt"
+            class="prompt"
+            type="text"
+            placeholder="Rechercher un utilisateur"
+            v-model="search"
         /><i class="search icon"></i>
       </div>
     </div>
@@ -14,10 +15,10 @@
       <span>Participants</span>
       <hr />
     </div>
-    <div v-for="participant in conversation.participants" :key="participant" class="user">
-      <div v-for="user in users" :key="user.id"> 
-        <span v-if="participant === user.username">  
-          <img title="Alice" v-bind:src="user.picture_url"/>
+    <div  v-for="participant in filterParticipants" :key="participant" class="user">
+      <div v-for="user in users" :key="user.id">
+        <span v-if="participant === user.username">
+          <img v-bind:title="participant" v-bind:src="user.picture_url"/>
           <span>{{participant}}</span>
         </span>
       </div>
@@ -35,8 +36,8 @@
       <span>Communauté</span>
       <hr />
     </div>
-    <div  v-for="user in users" :key="user.id" class="user">
-      <img title="Alice" v-bind:src="user.picture_url"/>
+    <div v-for="user in filterUsers" :key="user.id" class="user">
+      <img v-bind:title="user.username" v-bind:src="user.picture_url"/>
       <span>{{user.username}}</span>
       <br />
       <i class="nickname"></i>
@@ -56,7 +57,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["conversation", "user", "users"])
+    ...mapGetters(["conversation", "user", "users"]),
+    filterUsers() {
+      return this.users.filter(user=>user.username.toLowerCase().includes(this.search.toLowerCase()));
+    },
+    filterParticipants() {
+      return this.conversation.participants.filter(participant=>participant.toLowerCase().includes(this.search.toLowerCase()));
+    }
   },
   methods: {
     ...mapActions([])
