@@ -7,7 +7,7 @@
             type="text"
             placeholder="Rechercher un utilisateur"
             v-model="search"
-        /><i class="search icon"></i>
+        />
       </div>
     </div>
     <div class="spanner">
