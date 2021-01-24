@@ -51,7 +51,7 @@ export default function install(Vue, store) {
   });
 
   client.on("messageReacted", async ({ conversation_id, message }) => {
-    //TODO
+    store.commit("upsertReaction", { conversation_id, message });
   });
 
   client.on("messageEdited", async ({ conversation_id, message }) => {
@@ -59,7 +59,7 @@ export default function install(Vue, store) {
   });
 
   client.on("messageDeleted", async ({ conversation_id, message_id }) => {
-    //TODO
+    store.commit("removeMessage", { conversation_id, message_id });
   });
 
   client.on("usersAvailable", async ({ usernames }) => {
